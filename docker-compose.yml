@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: verifyx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: verifyx
+      POSTGRES_PASSWORD: verifyx_dev_password
+      POSTGRES_DB: verifyx
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
