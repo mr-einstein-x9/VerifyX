@@ -4,9 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     PROJECT_NAME: str = "VerifyX"
     ENV: str = "development"
-    DATABASE_URL: str = (
-        "postgresql+asyncpg://verifyx:verifyx_dev_password@localhost:5433/verifyx"
-    )
+    DATABASE_URL: str = "postgresql+asyncpg://verifyx:verifyx_dev_password@localhost:5433/verifyx"
     TEST_DATABASE_URL: str = (
         "postgresql+asyncpg://verifyx:verifyx_dev_password@localhost:5433/verifyx_test"
     )

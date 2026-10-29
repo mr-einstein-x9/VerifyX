@@ -30,9 +30,10 @@ async def get_db() -> AsyncGenerator[AsyncSession]:
             await session.close()
 
 
-async def check_db_health() -> bool:
+async def check_db_health(target_engine=None) -> bool:
+    eng = target_engine or engine
     try:
-        async with engine.connect() as conn:
+        async with eng.connect() as conn:
             await conn.execute(text("SELECT 1"))
             return True
     except Exception:

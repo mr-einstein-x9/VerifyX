@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+from app.database import engine
 from app.routers import health
 
 
@@ -13,6 +14,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     # Startup
     yield
     # Shutdown
+    await engine.dispose()
 
 
 def create_app() -> FastAPI:

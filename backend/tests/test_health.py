@@ -1,7 +1,6 @@
 import pytest
 from httpx import ASGITransport, AsyncClient
 
-from app.database import check_db_health
 from app.main import app
 
 
@@ -20,13 +19,7 @@ async def test_health_endpoint_schema():
 
 @pytest.mark.asyncio
 async def test_real_postgres_connectivity():
-    """Execute real async SQL query against configured PostgreSQL instance."""
-    is_connected = await check_db_health()
-    assert is_connected is True, (
-        "Failed to establish live connection to PostgreSQL database. "
-        "Verify Docker container is up and healthy on the configured port."
-    )
-
+    """Verify endpoint reports database connected against live PostgreSQL."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get("/api/health")
